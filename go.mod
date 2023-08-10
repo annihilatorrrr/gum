@@ -11,7 +11,7 @@ require (
 	github.com/charmbracelet/lipgloss v0.7.2-0.20230316100548-06dd20ee5707
 	github.com/mattn/go-runewidth v0.0.14
 	github.com/muesli/roff v0.1.0
-	github.com/muesli/termenv v0.15.2-0.20230323153104-73a40463ff25
+	github.com/muesli/termenv v0.15.2
 	github.com/sahilm/fuzzy v0.1.0
 )
 
@@ -38,7 +38,7 @@ require (
 	github.com/yuin/goldmark-emoji v1.0.1 // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
+	golang.org/x/sys v0.7.0 // indirect
 	golang.org/x/term v0.6.0 // indirect
 	golang.org/x/text v0.8.0 // indirect
 )
