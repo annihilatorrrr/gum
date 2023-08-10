@@ -3,7 +3,7 @@ module github.com/charmbracelet/gum
 go 1.18
 
 require (
-	github.com/alecthomas/kong v0.7.1
+	github.com/alecthomas/kong v0.8.0
 	github.com/alecthomas/mango-kong v0.1.0
 	github.com/charmbracelet/bubbles v0.15.1-0.20230324185713-1de5816ab4f7
 	github.com/charmbracelet/bubbletea v0.23.3-0.20230316100943-248eb83001a7
