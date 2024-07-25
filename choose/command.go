@@ -33,17 +33,7 @@ func (o Options) Run() error {
 	}
 
 	theme := huh.ThemeCharm()
-	options := make([]huh.Option[string], len(o.Options))
-	for i, option := range o.Options {
-		parsed := strings.SplitN(option, o.Deliminator, 2)
-		if len(parsed) == 2 {
-			key := strings.TrimSpace(parsed[0])
-			value := strings.TrimSpace(parsed[1])
-			options[i] = huh.NewOption(key, value)
-		} else {
-			options[i] = huh.NewOption(option, option)
-		}
-	}
+	options := huh.NewOptions(o.Options...)
 
 	theme.Focused.Base = lipgloss.NewStyle()
 	theme.Focused.Title = o.HeaderStyle.ToLipgloss()
@@ -54,6 +44,9 @@ func (o Options) Run() error {
 	theme.Focused.SelectedPrefix = o.SelectedItemStyle.ToLipgloss().SetString(o.SelectedPrefix)
 	theme.Focused.UnselectedPrefix = o.ItemStyle.ToLipgloss().SetString(o.UnselectedPrefix)
 
+	keymap := huh.NewDefaultKeyMap()
+	keymap.MultiSelect.ToggleAll.SetKeys("a", "ctrl+a")
+
 	for _, s := range o.Selected {
 		for i, opt := range options {
 			if s == opt.Key || s == opt.Value {
@@ -62,15 +55,15 @@ func (o Options) Run() error {
 		}
 	}
 
-	if o.NoLimit {
-		o.Limit = len(o.Options)
-	}
-
 	width := max(widest(o.Options)+
 		max(lipgloss.Width(o.SelectedPrefix)+lipgloss.Width(o.UnselectedPrefix))+
 		lipgloss.Width(o.Cursor)+1, lipgloss.Width(o.Header)+widthBuffer)
 
-	if o.Limit > 1 {
+	if o.NoLimit {
+		o.Limit = 0
+	}
+
+	if o.Limit > 1 || o.NoLimit {
 		var choices []string
 
 		field := huh.NewMultiSelect[string]().
@@ -86,7 +79,6 @@ func (o Options) Run() error {
 			WithWidth(width).
 			WithShowHelp(o.ShowHelp).
 			WithTheme(theme).
-			WithTimeout(o.Timeout).
 			Run()
 		if err != nil {
 			return err
@@ -112,7 +104,6 @@ func (o Options) Run() error {
 		WithWidth(width).
 		WithTheme(theme).
 		WithShowHelp(o.ShowHelp).
-		WithTimeout(o.Timeout).
 		Run()
 	if err != nil {
 		return err

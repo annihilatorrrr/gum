@@ -12,7 +12,7 @@ type Options struct {
 	Limit             int           `help:"Maximum number of options to pick" default:"1" group:"Selection"`
 	NoLimit           bool          `help:"Pick unlimited number of options (ignores limit)" group:"Selection"`
 	Ordered           bool          `help:"Maintain the order of the selected options" env:"GUM_CHOOSE_ORDERED"`
-	Height            int           `help:"Height of the list" default:"10" env:"GUM_CHOOSE_HEIGHT"`
+	Height            int           `help:"Height of the list" default:"0" env:"GUM_CHOOSE_HEIGHT"`
 	Cursor            string        `help:"Prefix to show on item that corresponds to the cursor position" default:"> " env:"GUM_CHOOSE_CURSOR"`
 	ShowHelp          bool          `help:"Show help keybinds" default:"true" negatable:"true" env:"GUM_CHOOSE_SHOW_HELP"`
 	Header            string        `help:"Header value" default:"Choose:" env:"GUM_CHOOSE_HEADER"`
@@ -26,5 +26,4 @@ type Options struct {
 	ItemStyle         style.Styles  `embed:"" prefix:"item." hidden:"" envprefix:"GUM_CHOOSE_ITEM_"`
 	SelectedItemStyle style.Styles  `embed:"" prefix:"selected." set:"defaultForeground=212" envprefix:"GUM_CHOOSE_SELECTED_"`
 	Timeout           time.Duration `help:"Timeout until choose returns selected element" default:"0" env:"GUM_CCHOOSE_TIMEOUT"` // including timeout command options [Timeout,...]
-	Deliminator       string        `help:"Deliminator to split the options to keys and values" default:"=" env:"GUM_CHOOSE_DELIMINATOR"`
 }
